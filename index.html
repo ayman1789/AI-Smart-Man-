@@ -1,440 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Smart Man Heroes — أبطال الكورس</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      /* لوحة الألوان الجديدة: أسود، أخضر فسفوري، ذهبي */
-      --neon-green: #39ff14;      /* أخضر فسفوري ساطع */
-      --neon-green-dim: #1e850b;  /* أخضر داكن للخلفيات */
-      --gold: #ffd700;            /* ذهبي لامع */
-      --gold-dim: #b8860b;        /* ذهبي داكن */
-      --black-bg: #050505;        /* أسود عميق */
-      --card-bg: #111111;         /* خلفية الكروت */
-      --border: #333333;          /* لون الحدود */
-      --text-main: #ffffff;
-      --text-muted: #a0a0a0;
-      
-      --shadow-glow: 0 0 20px rgba(57, 255, 20, 0.15); /* توهج أخضر */
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:"Cairo", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Arabic", sans-serif;
-      /* خلفية سوداء مع إضاءات خضراء خافتة */
-      background: radial-gradient(circle at 50% -20%, rgba(57, 255, 20, 0.08), transparent 70%),
-                  radial-gradient(circle at 100% 100%, rgba(255, 215, 0, 0.05), transparent 60%),
-                  #000000;
-      color:var(--text-main);
-    }
-    a{color:inherit; text-decoration:none}
-
-    .container{width:min(1200px, 92%); margin-inline:auto}
-
-    /* ===== Header ===== */
-    header{
-      position:relative; overflow:hidden; isolation:isolate;
-      /* تدرج أسود مع لمسة خضراء */
-      background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
-      border-bottom: 1px solid var(--neon-green-dim);
-      box-shadow: 0 4px 30px rgba(57, 255, 20, 0.1);
-    }
-    .brand{
-      display:flex; align-items:center; gap:18px; padding:28px 0; flex-wrap:wrap;
-    }
-    .brand img.logo{
-      width:68px; height:68px; object-fit:cover; border-radius:18px; 
-      border: 2px solid var(--neon-green);
-      box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
-      background:#000;
-    }
-    .brand-title{
-      display:flex; flex-direction:column; gap:6px;
-    }
-    .brand-title h1{
-      margin:0; font-size:clamp(28px, 6vw, 44px); line-height:1.05; font-weight:900;
-      letter-spacing:.4px; color:var(--text-main);
-      text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-    }
-    .brand-title .subtitle{
-      font-weight:600; color:var(--gold); opacity:.9; font-size:clamp(14px, 2.5vw, 16px);
-      letter-spacing: 0.5px;
-    }
-
-    /* ===== Section ===== */
-    section{padding:36px 0}
-    section .section-head{
-      display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px; flex-wrap:wrap;
-    }
-    h2.section-title{
-      margin:0; font-size:clamp(20px, 3.2vw, 26px); font-weight:800; color:var(--text-main);
-      position:relative; padding-inline-start:14px;
-    }
-    h2.section-title::before{
-      content:""; position:absolute; inset-inline-start:0; top:6px; bottom:6px; width:4px;
-      border-radius:10px; 
-      background: var(--neon-green);
-      box-shadow: 0 0 10px var(--neon-green);
-    }
-    .hint{color:var(--text-muted); font-size:14px}
-
-    /* ===== Grid Cards ===== */
-    .grid{display:grid; gap:14px; grid-template-columns: repeat( auto-fill, minmax(240px, 1fr) );}
-
-    .card{
-      position:relative; 
-      background: linear-gradient(145deg, #111 0%, #0d0d0d 100%);
-      border:1px solid var(--border);
-      border-radius:18px; padding:18px 16px 16px; 
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
-      min-height:120px; display:flex; flex-direction:column; gap:10px;
-    }
-    .card:hover{
-      transform:translateY(-4px); 
-      border-color: var(--neon-green);
-      box-shadow: 0 10px 30px -10px rgba(57, 255, 20, 0.3);
-    }
-    .card .icon{
-      width:46px; height:46px; display:grid; place-items:center; font-size:22px; border-radius:12px;
-      /* خلفية أيقونة داكنة مع حدود خضراء */
-      background: #1a1a1a;
-      color: var(--neon-green);
-      border: 1px solid #333;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    }
-    .card:hover .icon{
-      background: var(--neon-green);
-      color: #000;
-      box-shadow: 0 0 15px var(--neon-green);
-    }
-
-    .card .title{font-weight:800; letter-spacing:.2px; font-size:16.5px; line-height:1.4; color: #fff;}
-    .card .desc{color:var(--text-muted); font-size:13.5px}
-
-    /* Make whole card clickable */
-    .card.linked>a{position:absolute; inset:0; border-radius:18px;}
-    .card.linked:focus-within{outline:2px solid var(--gold)}
-
-    /* CTA strip */
-    .cta{
-      margin-top:28px; padding:20px; 
-      border:1px solid var(--gold-dim); 
-      background: linear-gradient(90deg, rgba(255, 215, 0, 0.05) 0%, rgba(0,0,0,0) 100%);
-      border-radius:16px; text-align:center; color:#fff;
-    }
-    .cta a{
-      font-weight:900; color:var(--neon-green); text-decoration:none; border-bottom: 2px solid var(--neon-green);
-      margin: 0 5px; transition: 0.3s;
-    }
-    .cta a:hover{
-        color: var(--gold); border-color: var(--gold);
-        text-shadow: 0 0 8px var(--gold);
-    }
-
-    /* Footer */
-    footer{ 
-        padding:30px 0 60px; color:var(--text-muted); font-size:14px; text-align:center; 
-        border-top:1px solid #222; margin-top:30px;
-    }
-    footer .sep{opacity:.35; margin:0 6px; color: var(--neon-green)}
-
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container">
-      <div class="brand">
-        <img class="logo" src="https://i.postimg.cc/QCVLDwgb/Chat-GPT-Image-Jun-13-2025-09-31-25-AM.png" alt="AI Smart Academy Logo" />
-        <div class="brand-title">
-          <h1>AI Smart Man Heroes</h1>
-          <div class="subtitle">مساعدوك الذكيون مخصصون لابطال كورس AI Smart Man </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-
-    <!-- ============= القسم الأول (Prompt Engenieering) ============= -->
-    <section id="prompt-engineering">
-      <div class="section-head">
-        <h2 class="section-title">القسم الأول — (Prompt Engenieering)</h2>
-        <div class="hint">أدوات كتابة البرومبتات للنصوص، الصور، والفيديو</div>
-      </div>
-      <div class="grid">
-        <!-- 1 -->
-        <div class="card linked" title="كتابة برومت بشكل احترافي">
-          <div class="icon" aria-hidden="true">🖊️</div>
-          <div class="title">كتابة برومت بشكل احترافى</div>
-          <a href="https://chatgpt.com/g/g-9L30hNkJG-prompt-enhancer" target="_blank" rel="noopener noreferrer" aria-label="فتح: كتابة برومت بشكل احترافى"></a>
-        </div>
-        <!-- 2 -->
-        <div class="card linked" title="إنشاء برومت للصور باحترافية عالية">
-          <div class="icon">🖼️</div>
-          <div class="title">إنشاء برومت للصور باحترافية عالية</div>
-          <a href="https://chatgpt.com/g/g-6808e3ab2e0c81918363208b301edafe-photo-prompt-builder" target="_blank" rel="noopener noreferrer" aria-label="فتح: إنشاء برومت للصور"></a>
-        </div>
-        <!-- 3 -->
-        <div class="card linked" title="حول الصورة لبرومت">
-          <div class="icon">🔍</div>
-          <div class="title">حول الصورة لبرومت</div>
-          <a href="https://chatgpt.com/g/g-6808cf44c59c8191ad28a9b7fd99a5f5-prompt-photo-detective" target="_blank" rel="noopener noreferrer" aria-label="فتح: حول الصورة لبرومت"></a>
-        </div>
-        <!-- 4 -->
-        <div class="card linked" title="Video Prompt Builder">
-          <div class="icon">🎬</div>
-          <div class="title">Video Prompt Builder</div>
-          <a href="https://chatgpt.com/g/g-6886bb4a1ad081919a34bdef7a55d9f1-video-prompt-builder" target="_blank" rel="noopener noreferrer" aria-label="فتح: Video Prompt Builder"></a>
-        </div>
-        <!-- 5 -->
-        <div class="card linked" title="Veo 3 Prompt Generator">
-          <div class="icon">🎞️</div>
-          <div class="title">Veo 3 Prompt Generator</div>
-          <a href="https://chatgpt.com/g/g-68724124c5248191803cde555c1d330f-veo-3-prompt-generator" target="_blank" rel="noopener noreferrer" aria-label="فتح: Veo 3 Prompt Generator"></a>
-        </div>
-        <!-- 6 -->
-        <div class="card linked" title="First/Last Frame Prompt Generator">
-          <div class="icon">🎞️</div>
-          <div class="title">First/Last Frame Prompt Generator</div>
-          <a href="https://chatgpt.com/g/g-68f6472d40008191b0b14481a27668a5-first-last-frame-video-maker" target="_blank" rel="noopener noreferrer" aria-label="فتح: First/Last Frame Prompt Generator"></a>
-        </div>
-        <!-- 7 -->
-        <div class="card linked" title="مهندس البرومت لتبديل المنتجات">
-          <div class="icon">🎞️</div>
-          <div class="title">مهندس البرومت لتبديل المنتجات</div>
-          <a href="https://chatgpt.com/g/g-69087569c9488191b0249988ffb9c857-mhnds-lbrwmt-ltbdyl-lmntjt" target="_blank" rel="noopener noreferrer" aria-label="فتح: مهندس البرومت لتبديل المنتجات"></a>
-        </div>
-        <!-- 8 -->
-        <div class="card linked" title="Time-Lapse Style">
-          <div class="icon">🎞️</div>
-          <div class="title">Time-Lapse Style</div>
-          <a href="https://chatgpt.com/g/g-69833a97f29c8191a07333e692cc7909-time-lapse-prompt-help" target="_blank" rel="noopener noreferrer" aria-label="فتح: Time-Lapse Style"></a>
-        </div>
-        <!-- NEW ADDITION: Statue Effect -->
-        <div class="card linked" title="Statue Effect Time-lapse Cinematic Style">
-            <div class="icon">🗿</div>
-            <div class="title">Statue Effect Time-lapse Cinematic Style</div>
-            <a href="https://chatgpt.com/g/g-69820c5fb9e48191b22c6d3dbac35886-statue-effect-time-lapse-cinematic-style" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============= القسم الثاني (Scientific Help) ============= -->
-    <section id="scientific-help">
-      <div class="section-head">
-        <h2 class="section-title">القسم الثاني — (Scientific Help)</h2>
-        <div class="hint">مساعدات طبية وعلمية عملية للصيادلة</div>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="Diagnosis Help"><div class="icon">🩺</div><div class="title">Diagnosis Help</div><a href="https://chatgpt.com/g/g-67ecab18c8cc8191b0d1c88073c6a2d3-diagnosis-help" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="قراءة التحاليل وتقارير الأشعة"><div class="icon">📊</div><div class="title">قراءة التحاليل وتقارير الأشعة</div><a href="https://chatgpt.com/g/g-67ee6288733c8191a29b5582f70a1d0b-qrh-lthlyl-wtqryr-lsh" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Side Effects Of Drugs"><div class="icon">💊</div><div class="title">Side Effects Of Drugs</div><a href="https://chatgpt.com/g/g-67ee646982008191b18309c16952b210-side-effects-of-drugs" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="طبيب الأطفال تطعيمات وتغذية"><div class="icon">👶</div><div class="title">طبيب الأطفال تطعيمات وتغذية</div><a href="https://chatgpt.com/g/g-67ec9c62e12881918f523e726691ce68-dr-baby" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Pharmaceutical Compounding Expert"><div class="icon">⚗️</div><div class="title">Pharmaceutical Compounding Expert</div><a href="https://chatgpt.com/g/g-67ec96d7f6648191bfd06fa3b12baddd-pharmaceutical-compounding-expert" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Pregnancy Coach"><div class="icon">🤰</div><div class="title">Pregnancy Coach</div><a href="https://chatgpt.com/g/g-67ec91e64fe88191b30e9d27a32c8093-pregnancy-coach" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="العلاج المنزلى والأعشاب"><div class="icon">🌿</div><div class="title">العلاج المنزلى والأعشاب</div><a href="https://chatgpt.com/g/g-67ec0521714c81918932325c2c62969d-l-lj-lmnzl-wl-shb" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="خبير الخطط الغذائية و الوزن المثالى"><div class="icon">🥗</div><div class="title">خبير الخطط الغذائية والوزن المثالى</div><a href="https://chatgpt.com/g/g-67e7e3ba4e748191867dccaeb685f5eb-khbyr-ltgdhy" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Dose Calculation"><div class="icon">🧮</div><div class="title">Dose Calculation</div><a href="https://chatgpt.com/g/g-67e75581283c819197571c3823701b6d-dose-calculation" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Over Dose and Poison Doctor"><div class="icon">☠️</div><div class="title">Over Dose and Poison Doctor</div><a href="https://chatgpt.com/g/g-67e53ab1820881919d6c53f0ec4068df-over-dose-and-poison-doctor" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Patient Counselling Doctor"><div class="icon">💬</div><div class="title">Patient Counselling Doctor</div><a href="https://chatgpt.com/g/g-67e413da38d0819184bf249600495d1f-patient-counselling" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Drug-Drug Interaction Doctor"><div class="icon">🧪</div><div class="title">Drug-Drug Interaction Doctor</div><a href="https://chatgpt.com/g/g-x3fRgyRkV-drug-interaction-explorer" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="دكتور كبد وكلى"><div class="icon">🫁</div><div class="title">دكتور كبد وكلى</div><a href="https://chatgpt.com/g/g-67fb03c1a9b88191b36b3baaf4a71e1d-dktwr-kbd-wkl-liverkidney-pro" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="خبير القلب والدواء"><div class="icon">❤️‍🩹</div><div class="title">خبير القلب والدواء</div><a href="https://chatgpt.com/g/g-67fb00e14e188191bbd3f6e3dd70da78-khbyr-lqlb-wldw-cardiopharma-pro" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Skin & Hair Doctor"><div class="icon">👩‍🦱</div><div class="title">Skin and Hair Doctor</div><a href="https://chatgpt.com/g/g-67fb60e850948191aaf91c16e0f649a5-d-bshr-wsh-r-stshry-ljldy-wltjmyl" target="_blank" rel="noopener noreferrer"></a></div>
-      </div>
-    </section>
-
-    <!-- ============= القسم الثالث (التسويق وكتابة المحتوى) ============= -->
-    <section id="marketing-content">
-      <div class="section-head">
-        <h2 class="section-title">القسم الثالث — التسويق وكتابة المحتوى</h2>
-        <div class="hint">أدوات لصناعة محتوى مؤثر وخطط تسويقية للصيدليات</div>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="Success Story Content Creation"><div class="icon">🏆</div><div class="title">Success Story Content Creation</div><a href="https://chatgpt.com/g/g-67ed38f20c888191aa98943b520595ad-success-story-content-creation" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="خبير المحتوى الفيروسي (الڤايرالجي)"><div class="icon">📈</div><div class="title">خبير المحتوى الفيروسي (الڤايرالجي)</div><a href="https://chatgpt.com/g/g-67ed368d1c0881919220d7b9d46668f0-khbyr-lmhtw-lfyrwsy-lvyrljy" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="Emotional content creation"><div class="icon">💙</div><div class="title">Emotional content creation</div><a href="https://chatgpt.com/g/g-67ed3311d4d08191a80257c7e7abca55-emotional-content-creation" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="hook technique content creation"><div class="icon">🎣</div><div class="title">hook technique content creation</div><a href="https://chatgpt.com/g/g-67ed2e9afa888191857d7ada8f3f6486-hook-technique-content-creation" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="إعداد خطة تسويقية للصيدلية"><div class="icon">🗺️</div><div class="title">إعداد خطة تسويقية للصيدلية</div><a href="https://chatgpt.com/g/g-67ecb55f2dc48191a82130e3d97a5c07-dd-kht-tswyqy-llsydly" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="خبير محتوى شهرى للصيدليات"><div class="icon">🗓️</div><div class="title">خبير محتوى شهرى للصيدليات</div><a href="https://chatgpt.com/g/g-67ecb051ed68819196fd1b0615642a0b-khbyr-mhtw-shhr-llsydlyt" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="أسلوب COI تكلفه عدم التصرف في كتابة المحتوى"><div class="icon">💸</div><div class="title">إسلوب COI — تكلفة عدم التصرف في كتابة المحتوى</div><a href="https://chatgpt.com/g/g-67ec0f567d18819181168955449a7053-slwb-coi-tklfh-dm-ltsrf-f-ktb-lmhtw" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="ROI العائد من الاستثمار في كتابة المحتوى"><div class="icon">📊</div><div class="title">ROI — العائد من الاستثمار في كتابة المحتوى</div><a href="https://chatgpt.com/g/g-67ec0c98abd481919fde1d427bf58767-roi-slwb-l-yd-mn-lstthmr-f-ktb-lmhtw" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="كاتب البوستات القصصية – StoryMarketer"><div class="icon">📝</div><div class="title">كاتب البوستات القصصية – StoryMarketer</div><a href="https://chatgpt.com/g/g-67e540e1762c81918c13199adb23f629-ktb-lbwstt-lqssy-storymarketer" target="_blank" rel="noopener noreferrer"></a></div>
-        <div class="card linked" title="AIDA Technique Content Creation"><div class="icon">📝</div><div class="title">AIDA Technique Content Creation</div><a href="https://chatgpt.com/g/g-6905f43719008191bc679c6144751b01-aida-technique-content-creation" target="_blank" rel="noopener noreferrer"></a></div>
-      </div>
-    </section>
-
-    <!-- ============= القسم الرابع (المبيعات) ============= -->
-    <section id="sales">
-      <div class="section-head">
-        <h2 class="section-title">القسم الرابع — المبيعات</h2>
-        <div class="hint">مهارات البيع الذكية</div>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="Professional Sales-man">
-          <div class="icon">🤝</div>
-          <div class="title">Professional Sales-man</div>
-          <a href="https://chatgpt.com/g/g-67eea2605a588191a5f4406da0c2c9b2-professional-salesman" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= القسم الخامس (إنشاء الصور) ============= -->
-    <section id="image-tools">
-      <div class="section-head">
-        <h2 class="section-title">القسم الخامس — إنشاء الصور</h2>
-        <div class="hint">مولدات صور ومنتجات بصرية</div>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="اعرض منتجك فى خلفية احترافية">
-          <div class="icon">🖼️</div>
-          <div class="title">اعرض منتجك فى خلفية احترافية</div>
-          <a href="https://www.insmind.com/workspace/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="piclumen">
-          <div class="icon">✨</div>
-          <div class="title">piclumen</div>
-          <a href="https://piclumen.com/app/image-generator/create" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Leonardo">
-          <div class="icon">🧠</div>
-          <div class="title">Leonardo</div>
-          <a href="https://app.leonardo.ai/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Recraft">
-          <div class="icon">🎨</div>
-          <div class="title">Recraft</div>
-          <a href="https://www.recraft.ai/invite/x4k9xGDKAt" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Ideogram">
-          <div class="icon">🧩</div>
-          <div class="title">Ideogram</div>
-          <a href="https://ideogram.ai/t/explore" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Sora">
-          <div class="icon">🎥</div>
-          <div class="title">Sora</div>
-          <a href="https://sora.chatgpt.com/explore" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= القسم السادس (مواقع تثبيت الشخصية) ============= -->
-    <section id="character-consistency">
-      <div class="section-head">
-        <h2 class="section-title">القسم السادس — مواقع تثبيت الشخصية</h2>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="LTX Studio">
-          <div class="icon">🎭</div>
-          <div class="title">LTX Studio</div>
-          <a href="https://ltx.studio/homepage-2a" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Ideogram">
-          <div class="icon">🧠</div>
-          <div class="title">Ideogram</div>
-          <a href="https://ideogram.ai/t/explore" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= القسم السابع (vibe coding) ============= -->
-    <section id="no-code">
-      <div class="section-head">
-        <h2 class="section-title">القسم السابع — مواقع الـ Vibe Coding (البرمجة بدون أكواد)</h2>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="ChatGPT">
-          <div class="icon">💬</div>
-          <div class="title">ChatGPT</div>
-          <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Gemini">
-          <div class="icon">🌀</div>
-          <div class="title">Gemini</div>
-          <a href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Claude">
-          <div class="icon">🤖</div>
-          <div class="title">Claude</div>
-          <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="Lovable">
-          <div class="icon">🛠️</div>
-          <div class="title">Lovable</div>
-          <a href="https://lovable.dev/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= القسم الثامن (AI Agent) ============= -->
-    <section id="ai-agents">
-      <div class="section-head">
-        <h2 class="section-title">القسم الثامن — مواقع AI Agent (وكلاء الذكاء الاصطناعي)</h2>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="Manus">
-          <div class="icon">🧩</div>
-          <div class="title">Manus</div>
-          <a href="https://manus.im/invitation/EXCDJGKSDRREOOV" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card linked" title="GenSpark">
-          <div class="icon">⚡</div>
-          <div class="title">GenSpark</div>
-          <a href="https://www.genspark.ai/" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= القسم التاسع (العروض التقديمية) ============= -->
-    <section id="presentations">
-      <div class="section-head">
-        <h2 class="section-title">القسم التاسع — مواقع إنشاء العروض التقديمية</h2>
-      </div>
-      <div class="grid">
-        <div class="card linked" title="Gamma">
-          <div class="icon">📽️</div>
-          <div class="title">Gamma</div>
-          <a href="https://gamma.app/signup?r=ves73jnka46coz3" target="_blank" rel="noopener noreferrer"></a>
-        </div>
-        <div class="card" title="استخدم وكلاء الذكاء الاصطناعي لإنشاء سلايدز">
-          <div class="icon">🧠</div>
-          <div class="title">يمكنك استعمال الـ AI Agent المذكورين بالأعلى لإنشاء Slides احترافية</div>
-          <p class="desc">اختر الوكيل المناسب ثم زوده بنص العرض وهيكل الشرائح وسيقوم بتوليد عرض متكامل.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============= NEW SECTION: Career Path ============= -->
-    <section id="career-path">
-      <div class="section-head">
-        <h2 class="section-title">القسم العاشر — تحديد المسار الوظيفي</h2>
-        <div class="hint">اكتشف مستقبلك المهني بذكاء</div>
-      </div>
-      <div class="grid">
-         <div class="card linked" title="Unlock Your Future">
-           <div class="icon">🚀</div>
-           <div class="title">Unlock Your Future</div>
-           <a href="https://chatgpt.com/g/g-680e0d7f2cb48191a9d1d868f77878b4-unlock-your-future" target="_blank" rel="noopener noreferrer"></a>
-         </div>
-      </div>
-    </section>
-
-    <div class="cta">
-        لو حابب تحترف الذكاء الاصطناعى وتتعلم أكتر — انضم لعائلة
-        <a href="https://wa.me/201044144295" target="_blank" rel="noopener noreferrer">AI Smart Man</a>
-    </div>
-
-  </main>
-
-  <footer>
-    <div>جميع الحقوق محفوظة لدى DR/Ayman El-Kady© <span class="sep">•</span> AI Smart Academy 2025</div>
-  </footer>
-</body>
-</html>
